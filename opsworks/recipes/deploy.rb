@@ -97,11 +97,16 @@ file "/srv/#{node['app']}/app.env" do
   notifies :create, 'ruby_block[create_external_files]', :immediately
 end
 
-# delete previous folder
-directory "/srv/#{node['app']}" do
-  recursive true
-  action :delete
+ruby_block "cleanup" do
+  block do
+    node['external-files'].each do |file_var|
+      FileUtils::rm "/srv/#{node['app']}/#{file_var['path']}", :force => true
+    end
+    FileUtils::rm "/srv/#{node['app']}/app.env", :force => true
+    FileUtils::rm "/srv/#{node['app']}/docker-compose.yml", :force => true
+  end
 end
+
 
 # clone repository
 application_git "/srv/#{node['app']}" do
