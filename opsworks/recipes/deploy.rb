@@ -98,7 +98,6 @@ file "/srv/#{node['app']}/app.env" do
 end
 
 ruby_block "cleanup" do
-  action :nothing
   block do
     node['external-files'].each do |file_var|
       FileUtils::rm "/srv/#{node['app']}/#{file_var['path']}", :force => true
@@ -106,6 +105,7 @@ ruby_block "cleanup" do
     FileUtils::rm "/srv/#{node['app']}/app.env", :force => true
     FileUtils::rm "/srv/#{node['app']}/docker-compose.yml", :force => true
   end
+  action :nothing
   notifies :create, "file[/srv/#{node['app']}/app.env]", :immediately
 end
 
