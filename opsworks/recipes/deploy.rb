@@ -98,6 +98,7 @@ file "/srv/#{node['app']}/app.env" do
 end
 
 ruby_block "cleanup" do
+  action :nothing
   block do
     node['external-files'].each do |file_var|
       FileUtils::rm "/srv/#{node['app']}/#{file_var['path']}", :force => true
@@ -105,13 +106,13 @@ ruby_block "cleanup" do
     FileUtils::rm "/srv/#{node['app']}/app.env", :force => true
     FileUtils::rm "/srv/#{node['app']}/docker-compose.yml", :force => true
   end
+  notifies :create, "file[/srv/#{node['app']}/app.env]", :immediately
 end
-
 
 # clone repository
 application_git "/srv/#{node['app']}" do
   repository app['app_source']['url']
   revision app['app_source']['revision']
   deploy_key app['app_source']['ssh_key']
-  notifies :create, "file[/srv/#{node['app']}/app.env]", :immediately
+  notifies :create, "ruby_block[cleanup]", :immediately
 end
