@@ -97,18 +97,6 @@ file "/srv/#{node['app']}/app.env" do
   notifies :create, 'ruby_block[create_external_files]', :immediately
 end
 
-ruby_block "cleanup" do
-  block do
-    node['external-files'].each do |file_var|
-      FileUtils::rm "/srv/#{node['app']}/#{file_var['path']}", :force => true
-    end
-    FileUtils::rm "/srv/#{node['app']}/app.env", :force => true
-    FileUtils::rm "/srv/#{node['app']}/docker-compose.yml", :force => true
-  end
-  action :nothing
-  notifies :create, "file[/srv/#{node['app']}/app.env]", :immediately
-end
-
 # clone repository
 application_git "/srv/#{node['app']}" do
   repository app['app_source']['url']
