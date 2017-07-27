@@ -97,6 +97,12 @@ file "/srv/#{node['app']}/app.env" do
   notifies :create, 'ruby_block[create_external_files]', :immediately
 end
 
+# delete previous folder
+directory "/srv/#{node['app']}" do
+  recursive true
+  action :delete
+end
+
 # clone repository
 application_git "/srv/#{node['app']}" do
   repository app['app_source']['url']
