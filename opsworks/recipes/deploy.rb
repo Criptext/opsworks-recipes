@@ -102,5 +102,5 @@ application_git "/srv/#{node['app']}" do
   repository app['app_source']['url']
   revision app['app_source']['revision']
   deploy_key app['app_source']['ssh_key']
-  notifies :create, "ruby_block[cleanup]", :immediately
+  notifies :create, "file[/srv/#{node['app']}/app.env]", :immediately
 end
