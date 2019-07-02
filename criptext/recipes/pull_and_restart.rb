@@ -44,7 +44,7 @@ cron 'delete_blacklisted_events' do
   user 'ec2-user'
   mailto "javier@criptext.com,daniel@criptext.com"
   environment app['environment']
-  command "/usr/bin/node /srv/keyserver/scripts/src/purge-blacklisted-events.js"
+  command "/usr/bin/node /srv/#{node['app']}/scripts/src/purge-blacklisted-events.js"
 end
 
 cron 'delete_blacklisted_emails' do
@@ -55,7 +55,7 @@ cron 'delete_blacklisted_emails' do
   user 'ec2-user'
   mailto "javier@criptext.com,daniel@criptext.com"
   environment app['environment']
-  command "/usr/bin/node /srv/keyserver/scripts/src/purge-blacklisted-emails.js"
+  command "/usr/bin/node /srv/#{node['app']}/scripts/src/purge-blacklisted-emails.js"
 end
 
 cron 'delete_blacklisted_emails' do
@@ -66,7 +66,7 @@ cron 'delete_blacklisted_emails' do
   user 'ec2-user'
   mailto "javier@criptext.com,daniel@criptext.com"
   environment app['environment']
-  command "/usr/bin/node /srv/keyserver/api-server/src/scripts/deleteAccountsForInactivity.js"
+  command "/usr/bin/node /srv/#{node['app']}/api-server/src/scripts/deleteAccountsForInactivity.js"
 end
 
 #restart supervisor
