@@ -28,7 +28,7 @@ ruby_block "replace_vars" do
 end
 
 #Add NPM token to install private dependencies
-bash 'copy_supervisor_conf_file' do
+bash 'add_npm_token' do
   code <<-EOH
   echo "//registry.npmjs.org/:_authToken=#{app['environment']['NPM_TOKEN'][1]}" >> ~/.npmrc
   EOH
