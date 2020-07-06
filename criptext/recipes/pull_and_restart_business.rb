@@ -38,7 +38,6 @@ end
 bash 'yarn install' do
   cwd "/srv/#{node['app']}"
   code <<-EOH
-      nvm use 10
       yarn --frozen-lockfile
     EOH
   end
