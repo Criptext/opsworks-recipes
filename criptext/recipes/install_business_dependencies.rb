@@ -29,7 +29,7 @@ package 'yarn'
 
 bash 'install developement tools' do
   code <<-EOH
-    yum groupinstall "Development Tools"
+    yum groupinstall -y "Development Tools"
   EOH
 end
 
