@@ -30,7 +30,7 @@ end
 #Add NPM token to install private dependencies
 bash 'add_npm_token' do
   code <<-EOH
-  echo "//registry.npmjs.org/:_authToken=#{app['environment']['NPM_TOKEN'][1]}" >> ~/.npmrc
+  echo "//registry.npmjs.org/:_authToken=#{app['environment']['NPM_TOKEN'][1]}" >> /srv/#{node['app']}/.npmrc
   EOH
 end
 
