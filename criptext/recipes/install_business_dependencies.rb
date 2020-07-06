@@ -1,11 +1,3 @@
-remote_file '/root/node_install.sh' do
-  source 'https://rpm.nodesource.com/setup_10.x'
-end
-
-bash 'install node from RPM' do
-  code 'bash /root/node_install.sh'
-end
-
 remote_file '/root/nvm_install.sh' do
   source 'https://raw.githubusercontent.com/creationix/nvm/v0.24.0/install.sh'
 end
