@@ -27,6 +27,12 @@ end
 
 package 'yarn' 
 
+bash 'install developement tools' do
+  code <<-EOH
+    yum groupinstall "Development Tools"
+  EOH
+end
+
 bash 'install supervisor' do
     code <<-EOH
       pip install -U supervisor
